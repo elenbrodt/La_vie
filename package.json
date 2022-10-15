@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/elenbrodt/La_vie/issues"
   },
-  "homepage": "https://github.com/elenbrodt/La_vie#readme"
+  "homepage": "https://github.com/elenbrodt/La_vie#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
