@@ -7,6 +7,9 @@ const DB_CONFIG = {
   dialect: "mysql",
   host: "localhost",
   port: 3306,
+  define: {
+    timestamps: false
+}
 };
 
 // objeto para guardar a conexão do banco dados
