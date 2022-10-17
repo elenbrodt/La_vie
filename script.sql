@@ -4,7 +4,7 @@ USE la_vie;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `psicologos` (
-  `psicologos_id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `psicologo_id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `email` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE `atendimentos` (
   KEY `fk_paciente` (`paciente_id`),
   CONSTRAINT `fk_paciente` FOREIGN KEY (`paciente_id`) REFERENCES `pacientes` (`paciente_id`),
   KEY `fk_psicologo` (`psicologo_id`),
-  CONSTRAINT `fk_psicologo` FOREIGN KEY (`psicologo_id`) REFERENCES `psicologos` (`psicologos_id`),
+  CONSTRAINT `fk_psicologo` FOREIGN KEY (`psicologo_id`) REFERENCES `psicologos` (`psicologo_id`),
   `data_atendimento` DATE NOT NULL,
   `observacoes` VARCHAR(500) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
