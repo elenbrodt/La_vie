@@ -7,7 +7,7 @@ CREATE TABLE `psicologos` (
   `psicologo_id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `senha` varchar(50) NOT NULL,
+  `senha` varchar(250) NOT NULL,
   `apresentacao` varchar(200) NOT NULL  
 ) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,3 +38,4 @@ CREATE TABLE `atendimentos` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 SELECT * FROM pacientes
+SELECT * FROM psicologos
