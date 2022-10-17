@@ -25,7 +25,7 @@ const psicologosController = {
                 }
             })
             if (umPsicologo === null) {
-                res.status(404).json("Não encontrado")
+                res.status(404).json("ID Não encontrado")
             } else {
             res.status(200).json(umPsicologo)}
             
