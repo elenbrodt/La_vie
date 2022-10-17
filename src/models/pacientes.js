@@ -1,8 +1,8 @@
-const db = require("database");
+const db = require("../database");
 const {DataTypes} = require ("sequelize");
 
-const pacientes = db.pacientes(
-    "pacientes",
+const Pacientes = db.define(
+    "Pacientes",
     {
         id:{
             type: DataTypes.STRING,
@@ -20,6 +20,6 @@ const pacientes = db.pacientes(
         }
     },
     {
-        tableNAME: "Pacientes",
+        tableNAME: "pacientes",
     }
 );
