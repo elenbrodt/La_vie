@@ -21,7 +21,7 @@
 
 // module.exports = pacientesController;
 
-const { Pacientes } = require("../models/pacientes")
+const { Pacientes } = require("../models")
 const bcrypt = require("bcryptjs");
 
 const pacientesController = {
