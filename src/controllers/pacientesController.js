@@ -72,18 +72,17 @@ const pacientesController = {
         }
       },
 
-    async atualizarPsicologo(req, res) {
+    async atualizarPaciente(req, res) {
         const { id } = req.params;
-        const { nome, email, senha, apresentacao } = req.body;
+        const { nome, email, idade } = req.body;
 
         if (!id) return res.status(400).json("id não enviado");
 
-        const psicologoAtualizado = await Psicologos.update(
+        const pacienteAtualizado = await Pacientes.update(
             {
               nome,
               email,
-              senha,
-              apresentacao,
+              idade,
             },
             {
               where: {
@@ -92,18 +91,18 @@ const pacientesController = {
             }
           );
       
-          res.json("Psicólogo Atualizado");
+          res.json("Paciente Atualizado");
     },
-    async deletarPsicologo(req, res) {
+    async deletarPaciente(req, res) {
         try {
             const { id } = req.params
 
-            const deletandoPsicologo = await Psicologos.destroy({
+            const deletandoPaciente = await Pacientes.destroy({
                 where: {
-                    psicologo_id: id,
+                    paciente_id: id,
                 }
             })
-            res.status(204).json("Psicólogo Deletado")
+            res.status(204).json("Paciente Deletado")
         } catch (error) {
             res.status(404).json("Id não encontrado")
         }

@@ -16,7 +16,7 @@ const Pacientes = db.define(
             type: DataTypes.STRING,
         },
         idade:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.DATE,
         }
     },
     {
