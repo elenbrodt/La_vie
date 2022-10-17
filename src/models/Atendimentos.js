@@ -19,7 +19,7 @@ const Atendimentos = db.define(
           key: "paciente_id",
         },
       },
-    psicoloco_id: {
+    psicologo_id: {
         type: DataTypes.INTEGER,
         references: {
             model: Psicologos,
