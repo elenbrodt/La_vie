@@ -37,4 +37,6 @@ CREATE TABLE `atendimentos` (
 ) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-SELECT * FROM pacientes
+SELECT * FROM pacientes;
+
+INSERT INTO pacientes (nome, email, idade) VALUES ('paciente1', 'paciente1@email.com', '12/10/2000');
