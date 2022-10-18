@@ -104,7 +104,7 @@ const psicologosController = {
               res.status(200).json("ID deletado")}
         } 
         catch (error) {
-            res.console.log(error)
+            console.log(error)
         }
     },
 }
