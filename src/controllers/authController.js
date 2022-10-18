@@ -15,7 +15,7 @@ const AuthController = {
       });
 
       if (!psicologo) {
-        return res.status(400).json("Email não cadastrado!");
+        return res.status(401).json("Email não cadastrado!");
       }
 
       if (!bcrypt.compareSync(senha, psicologo.senha)) {
@@ -34,7 +34,7 @@ const AuthController = {
 
       return res.json(token);
     } catch (error) {
-        return res.status(400);
+        return res.status(200);
     }
   },
 };
