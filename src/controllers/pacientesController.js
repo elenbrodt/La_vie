@@ -22,7 +22,6 @@
 // module.exports = pacientesController;
 
 const { Pacientes } = require("../models")
-const bcrypt = require("bcryptjs");
 
 const pacientesController = {
     
@@ -40,7 +39,7 @@ const pacientesController = {
         try {
 
             const { id } = req.params
-            const paciente_id = Pacientes.paciente_id
+            
             
             const umPaciente = await Pacientes.findOne({
                 where: {
@@ -60,11 +59,11 @@ const pacientesController = {
     async criarPaciente(req, res) {
         try{
             const { nome, email, idade } = req.body;
-            
+            const newIdade = new Date(req.body.idade)
             const novoPaciente = await Pacientes.create({ 
               nome,
               email,
-              idade,
+              idade: newIdade,
             });
             res.status(201).json(novoPaciente);
         } catch (err){

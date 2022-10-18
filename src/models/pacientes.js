@@ -4,8 +4,8 @@ const {DataTypes} = require ("sequelize");
 const Pacientes = db.define(
     "Pacientes",
     {
-        id:{
-            type: DataTypes.STRING,
+        paciente_id:{
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
@@ -20,6 +20,9 @@ const Pacientes = db.define(
         }
     },
     {
-        tableNAME: "pacientes",
+        tableName: "pacientes",
+        timestamps: false,
     }
 );
+
+module.exports = Pacientes
