@@ -72,38 +72,60 @@ const pacientesController = {
       },
 
     async atualizarPaciente(req, res) {
-        const { id } = req.params;
-        const { nome, email, idade } = req.body;
-
-        if (!id) return res.status(400).json("id não enviado");
-
-        const pacienteAtualizado = await Pacientes.update(
-            {
-              nome,
-              email,
-              idade,
-            },
-            {
-              where: {
-                id,
-              },
+        try{
+            const { id } = req.params;
+            const { nome, email, idade } = req.body;
+            const newIdade = new Date(req.body.idade)
+    
+            if (!id) return res.status(400).json("id não enviado");
+            
+    
+            const pacienteAtualizado = await Pacientes.update(
+                {
+                  nome,
+                  email,
+                  idade: newIdade
+                },
+                {
+                  where: {
+                    paciente_id: id,
+                  },
+                }
+              );
+              const umPaciente = await Pacientes.findOne({
+                where: {
+                    paciente_id: id,
+                }
+            })
+            if(umPaciente === null){
+                res.status(404).json("ID não encontrado")
+            }else{
+              res.status(200).json(umPaciente);}
+            }catch (err){
+                res.status(400).json("Há um erro na requisição")
             }
-          );
-      
-          res.json("Paciente Atualizado");
     },
     async deletarPaciente(req, res) {
         try {
             const { id } = req.params
-
+            const umPaciente = await Pacientes.findOne({
+                where: {
+                    paciente_id: id,
+                }
+            })
             const deletandoPaciente = await Pacientes.destroy({
                 where: {
                     paciente_id: id,
                 }
             })
-            res.status(204).json("Paciente Deletado")
-        } catch (error) {
-            res.status(404).json("Id não encontrado")
+            if(umPaciente === null){
+                res.status(404).json("ID não encontrado")
+            }
+            else{
+              res.status(200).json("ID deletado")}
+        } 
+        catch (error) {
+            res.console.log(error)
         }
     },
 }
