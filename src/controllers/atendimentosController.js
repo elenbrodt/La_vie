@@ -28,9 +28,9 @@ const atenidmentosController = {
     async criarAtendimento(req, res) {
         try{
             console.log(req.auth);
-            const {paciente_id, psicologo_id, data_atendimento, abservacoes} = req.body;
+            const {paciente_id, psicologo_id, data_atendimento, observacoes} = req.body;
             const atendimentoCriado = await Atendimentos.create({
-                psicologo_id,paciente_id,data_atendimento, abservacoes
+                psicologo_id,paciente_id,data_atendimento, observacoes
             });
             //const paciente = await Pacientes.findByPk(paciente_id);
             //await atendimentoCriado.setPacientes(paciente);
