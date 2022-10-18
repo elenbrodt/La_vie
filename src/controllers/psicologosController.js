@@ -17,13 +17,15 @@ const psicologosController = {
         try {
 
             const { id } = req.params
-            const psicologo_id = Psicologos.psicologo_id
             
-            const umPsicologo = await Psicologos.findOne({
+            const umPsicologo = await Psicologos.findOne(
+              {
                 where: {
-                    psicologo_id: id,
-                }
-            })
+                  psicologo_id: id,
+                },
+              },
+              )
+        
             if (umPsicologo === null) {
                 res.status(404).json("ID Não encontrado")
             } else {
@@ -52,39 +54,61 @@ const psicologosController = {
       },
 
     async atualizarPsicologo(req, res) {
+        try{
         const { id } = req.params;
         const { nome, email, senha, apresentacao } = req.body;
+        const newSenha = bcrypt.hashSync(senha, 5);
 
         if (!id) return res.status(400).json("id não enviado");
+        
 
         const psicologoAtualizado = await Psicologos.update(
             {
               nome,
               email,
-              senha,
+              senha: newSenha,
               apresentacao,
             },
             {
               where: {
-                id,
+                psicologo_id: id,
               },
             }
           );
-      
-          res.json("Psicólogo Atualizado");
+          const umPsicologo = await Psicologos.findOne({
+            where: {
+                psicologo_id: id,
+            }
+        })
+        if(umPsicologo === null){
+            res.status(404).json("ID não encontrado")
+        }else{
+          res.status(200).json(umPsicologo);}
+        }catch (err){
+            res.status(400).json("Há um erro na requisição")
+        }
     },
     async deletarPsicologo(req, res) {
         try {
             const { id } = req.params
+            const umPsicologo = await Psicologos.findOne({
+                where: {
+                    psicologo_id: id,
+                }
+            })
 
             const deletandoPsicologo = await Psicologos.destroy({
                 where: {
                     psicologo_id: id,
                 }
             })
-            res.status(204).json("Psicólogo Deletado")
+            
+            if(umPsicologo === null){
+                res.status(404).json("ID não encontrado")
+            }else{
+              res.status(200).json("ID deletado")}
         } catch (error) {
-            res.status(404).json("Id não encontrado")
+            res.console.log(error)
         }
     },
 }
