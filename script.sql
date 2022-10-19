@@ -1,4 +1,5 @@
 CREATE DATABASE la_vie;
+
 USE la_vie;
 
 CREATE TABLE `psicologos` (
