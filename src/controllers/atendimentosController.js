@@ -1,4 +1,4 @@
-const {Psicologos, Atendimentos}  = require("../models");
+const {Psicologos, Atendimentos, Pacientes}  = require("../models");
 
 const atenidmentosController = {
     async listarAtendimentos (req, res) {
@@ -27,7 +27,6 @@ const atenidmentosController = {
                 res.json(atendimentoId)
             res.status(204);
             }
-            
         }catch(error){
             return res.status(500).json("Ocorreu algum problema");
         }
@@ -37,14 +36,18 @@ const atenidmentosController = {
         try{
             console.log(req.auth);
             const {paciente_id, psicologo_id, data_atendimento, observacoes} = req.body;
-            const atendimentoCriado = await Atendimentos.create({
-                psicologo_id,paciente_id,data_atendimento, observacoes
-            });
-
-            res.json(atendimentoCriado)
-            res.status(204);
+            if (req.auth.psicologo_id == psicologo_id){
+                const atendimentoCriado = await Atendimentos.create({
+                    psicologo_id,paciente_id,data_atendimento, observacoes
+                });
+                res.json(atendimentoCriado)
+                res.status(204);
+            }else{
+                res.status(500).json("Token invalido! Faça login novamente!");
+            }
+            
         }catch(error){
-            return res.status(500).json("Ocorreu algum problema");
+            return res.status(500).json("Favor verifique o paciente_id");
         }
     },
 }

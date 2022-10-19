@@ -12,7 +12,7 @@ const routes = express.Router();
 
 routes.get("/atendimentos", atendimentosController.listarAtendimentos);
 routes.get("/atendimentos/:id", atendimentosController.listarAtendimento);
-routes.post("/atendimentos", auth, validacaoAtendimentos, atendimentosController.criarAtendimento);
+routes.post("/atendimentos", validacaoAtendimentos, auth,  atendimentosController.criarAtendimento);
 routes.get("/psicologos", psicologosController.listarTodosPsicologos);
 routes.get("/psicologos/:id", psicologosController.listarUmPsicologo);
 routes.post("/psicologos", validacaoPsicologos, psicologosController.criarPsicologo);
