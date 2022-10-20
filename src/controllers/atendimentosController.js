@@ -1,15 +1,17 @@
 const {Psicologos, Atendimentos, Pacientes}  = require("../models");
 
-const atenidmentosController = {
+const atendimentosController = {
     async listarAtendimentos (req, res) {
         try{
             const listaAtendimentos = await Atendimentos.findAll({
-                include: Psicologos,
+                include: [
+                    {model: Psicologos, attributes : ['psicologo_id', 'nome', 'email']}, 
+                    {model: Pacientes}],
             });
             res.json(listaAtendimentos)
-            res.status(204);
+            res.status(200);
         }catch(error){
-            return res.status(500).json("Ocorreu algum problema");
+            return res.status(500).json();
         }
         
     },
@@ -22,10 +24,10 @@ const atenidmentosController = {
                 },
             });
             if (atendimentoId === null) {
-                res.status(404).json("ID Não encontrado")
+                res.status(404).json("ID não encontrado.")
             } else{
                 res.json(atendimentoId)
-            res.status(204);
+                res.status(200);
             }
         }catch(error){
             return res.status(500).json("Ocorreu algum problema");
@@ -41,14 +43,14 @@ const atenidmentosController = {
                     psicologo_id,paciente_id,data_atendimento, observacoes
                 });
                 res.json(atendimentoCriado)
-                res.status(204);
+                res.status(201);
             }else{
                 res.status(500).json("Token invalido! Faça login novamente!");
             }
             
         }catch(error){
-            return res.status(500).json("Favor verifique o paciente_id");
+            return res.status(500).json("Houve algum probelma na requisição");
         }
     },
 }
-module.exports = atenidmentosController;
+module.exports = atendimentosController;

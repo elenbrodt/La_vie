@@ -7,7 +7,8 @@ const pacientesController = require("../controllers/pacientesController");
 const authController = require("../controllers/authController");
 const authLoginValidation = require("../validations/auth/login")
 const auth = require("../middlewares/auth")
-const validacaoAtendimentos = require("../validations/atendimentos/create")
+const validacaoAtendimentos = require("../validations/atendimentos/create");
+const dashboardController = require("../controllers/dashboardController");
 const routes = express.Router();
 
 routes.get("/atendimentos", atendimentosController.listarAtendimentos);
@@ -26,4 +27,10 @@ routes.delete("/pacientes/:id", pacientesController.deletarPaciente);
 
 
 routes.post("/login",authLoginValidation, authController.login)
+
+
+routes.get("/dashboard/numero-paciente",dashboardController.countPacientes);
+routes.get("/dashboard/numero-psicologo",dashboardController.countPsicologos);
+routes.get("/dashboard/numero-atendimentos",dashboardController.countAtendimentos);
+routes.get("/dashboard/media-atendimentos",dashboardController.averageAtendimentos);
 module.exports = routes;
