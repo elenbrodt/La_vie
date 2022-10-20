@@ -25,7 +25,7 @@ const pacientesController = {
         res.status(200).json(umPaciente);
       }
     } catch (error) {
-      console.log(error);
+        return res.status(500);
     }
   },
 

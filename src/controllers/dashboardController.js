@@ -4,17 +4,19 @@ const dashboardController = {
     countPacientes: async (req, res) => {
         try {
           const pacientes = await Pacientes.count();
-          res.json(pacientes);
+          res.json(`Número de pacientes: ${pacientes}`);
+          res.status(200);
         } catch (error) {
-          console.error(error);
+          return res.status(500);
         }
       },
       countPsicologos: async (req, res) => {
         try {
           const psicologos = await Psicologos.count();
-          res.json(`${psicologos} psicologos`);
+          res.json(`Número de psicólogos: ${psicologos} `);
+          res.status(200);
         } catch (error) {
-          console.error(error);
+            return res.status(500);
         }
       },
       countAtendimentos: async (req, res) => {
@@ -29,9 +31,10 @@ const dashboardController = {
               },
             ],
           });
-          return res.json(`${atendimentos} atendimentos`);
+          return res.json(`Número de atendimentos: ${atendimentos}`);
+          res.status(200);
         } catch (error) {
-          console.error(error);
+            return res.status(500);
         }
       },
       averageAtendimentos: async (req, res) => {
@@ -43,8 +46,9 @@ const dashboardController = {
               atendimentos / psicologos
             ).toFixed(2)}`
           );
+          res.status(200);
         } catch (error) {
-          console.error(error);
+            return res.status(500);
         }
       },
 }

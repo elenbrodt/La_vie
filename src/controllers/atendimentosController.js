@@ -45,11 +45,11 @@ const atendimentosController = {
                 res.json(atendimentoCriado)
                 res.status(201);
             }else{
-                res.status(500).json("Token invalido! Faça login novamente!");
+                res.status(401).json("Token invalido! Faça login novamente!");
             }
             
         }catch(error){
-            return res.status(500).json("Houve algum probelma na requisição");
+            return res.status(500).json("Houve algum problema na requisição");
         }
     },
 }
