@@ -51,6 +51,7 @@ const atendimentosController = {
 
       res.status(201).json(atendimentoCriado);
     } catch (error) {
+      console.log(error)
       next(error);
     }
   },

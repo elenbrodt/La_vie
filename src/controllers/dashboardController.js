@@ -1,25 +1,27 @@
 const {Pacientes, Psicologos, Atendimentos} = require("../models");
 
+const SUCCESS = require("../constants/success")
+
 const dashboardController = {
-    countPacientes: async (req, res) => {
+    countPacientes: async (req, res, next) => {
         try {
           const pacientes = await Pacientes.count();
-          res.json(`Número de pacientes: ${pacientes}`);
+          res.json(SUCCESS.PACIENTES + pacientes);
           res.status(200);
         } catch (error) {
-          return res.status(500);
+          next(error)
         }
       },
-      countPsicologos: async (req, res) => {
+      countPsicologos: async (req, res, next) => {
         try {
           const psicologos = await Psicologos.count();
-          res.json(`Número de psicólogos: ${psicologos} `);
+          res.json(SUCCESS.PSICOLOGOS + psicologos);
           res.status(200);
         } catch (error) {
-            return res.status(500);
+          next(error)
         }
       },
-      countAtendimentos: async (req, res) => {
+      countAtendimentos: async (req, res, next) => {
         try {
           const atendimentos = await Atendimentos.count({
             include: [
@@ -31,24 +33,23 @@ const dashboardController = {
               },
             ],
           });
-          return res.json(`Número de atendimentos: ${atendimentos}`);
-          res.status(200);
+          return res.status(200).json(SUCCESS.ATENDIMENTOS + atendimentos);
         } catch (error) {
-            return res.status(500);
+            next(error)
         }
       },
-      averageAtendimentos: async (req, res) => {
+      averageAtendimentos: async (req, res, next) => {
         try {
           const atendimentos = await Atendimentos.count();
           const psicologos = await Psicologos.count();
           res.json(
-            `Nossa média de atendimentos por psicologos é igual a ${(
+            SUCCESS.MEDIA + (
               atendimentos / psicologos
-            ).toFixed(2)}`
+            ).toFixed(2)
           );
           res.status(200);
         } catch (error) {
-            return res.status(500);
+          next(error)
         }
       },
 }

@@ -1,17 +1,18 @@
 const express = require("express");
+const paramID = require("../validations/param_id");
 const atendimentosController = require('../controllers/atendimentosController');
+const validacaoAtendimentos = require("../validations/atendimentos/create");
 const psicologosController = require("../controllers/psicologosController");
 const validacaoPsicologos = require("../validations/psicologos/create");
 const putPsicologos = require("../validations/psicologos/update");
+const pacientesController = require("../controllers/pacientesController");
 const validacaoPacientes = require("../validations/pacientes/create")
 const putPacientes = require("../validations/pacientes/update");
-const pacientesController = require("../controllers/pacientesController");
 const authController = require("../controllers/authController");
 const authLoginValidation = require("../validations/auth/login")
 const auth = require("../middlewares/auth")
-const validacaoAtendimentos = require("../validations/atendimentos/create");
-const paramID = require("../validations/param_id");
 const dashboardController = require("../controllers/dashboardController");
+
 const routes = express.Router();
 
 routes.get("/atendimentos", atendimentosController.listarAtendimentos);

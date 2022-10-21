@@ -12,6 +12,11 @@ module.exports = (error, req, res, next) => {
   }
 
   if (error.name === "SequelizeForeignKeyConstraintError") {
+    if(error.parent.code === "ER_NO_REFERENCED_ROW_2"){
+      return res
+      .status(400)
+      .json(ERRORS.CREATE_FAIL);
+    }
     return res
       .status(400)
       .json(ERRORS.DELETE.CONSTRAINT);
