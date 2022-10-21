@@ -1,16 +1,15 @@
 const { Pacientes } = require("../models");
 
 const pacientesController = {
-  async listarTodosPacientes(req, res) {
+  async listarTodosPacientes(req, res, next) {
     try {
       const listaDeTodosPacientes = await Pacientes.findAll();
-
       res.status(200).json(listaDeTodosPacientes);
     } catch (error) {
-      return res.status(500);
+      next(error)
     }
   },
-  async listarUmPaciente(req, res) {
+  async listarUmPaciente(req, res, next) {
     try {
       const { id } = req.params;
 
@@ -25,38 +24,41 @@ const pacientesController = {
         res.status(200).json(umPaciente);
       }
     } catch (error) {
-        return res.status(500);
+        next(error)
     }
   },
 
-  async criarPaciente(req, res) {
+  async criarPaciente(req, res, next) {
     try {
       const { nome, email, idade } = req.body;
-      const newIdade = new Date(req.body.idade);
+      
       const novoPaciente = await Pacientes.create({
         nome,
         email,
-        idade: newIdade,
+        idade,
       });
       res.status(201).json(novoPaciente);
-    } catch (err) {
-      res.status(400).json("Houve algum problema na requisição");
+    } catch (error) {
+      next(error)
     }
   },
 
-  async atualizarPaciente(req, res) {
+  async atualizarPaciente(req, res, next) {
     try {
       const { id } = req.params;
       const { nome, email, idade } = req.body;
-      const newIdade = new Date(req.body.idade);
 
-      if (!id) return res.status(400).json("ID não enviado");
+      const valid_paciente = await Pacientes.findByPk(id);
+
+      if (!valid_paciente) {
+        return res.status(400).json("ID não encontrado")   
+      }
 
       const pacienteAtualizado = await Pacientes.update(
         {
           nome,
           email,
-          idade: newIdade,
+          idade,
         },
         {
           where: {
@@ -64,42 +66,32 @@ const pacientesController = {
           },
         }
       );
-      const umPaciente = await Pacientes.findOne({
-        where: {
-          paciente_id: id,
-        },
-      });
-      if (umPaciente === null) {
-        res.status(404).json("ID não encontrado");
-      } else {
-        res.status(200).json(umPaciente);
-      }
-    } catch (err) {
-      res.status(400).json("Há um problema na requisição");
+   
+      return res.status(200).json(valid_paciente);
+
+    } catch (error) {
+      next(error)
     }
   },
-  async deletarPaciente(req, res) {
+  async deletarPaciente(req, res, next) {
     try {
       const { id } = req.params;
-      const umPaciente = await Pacientes.findOne({
-        where: {
-          paciente_id: id,
-        },
-      });
+      
       const deletandoPaciente = await Pacientes.destroy({
         where: {
           paciente_id: id,
         },
       });
-      if (umPaciente === null) {
+      if (deletandoPaciente === 0) {
         res.status(404).json("ID não encontrado");
       } else {
-        res.status(200).json("ID deletado");
+        res.sendStatus(204);
       }
-    } catch (error) {
-      res.console.log(error);
+    } catch (error) {     
+      next(error);
     }
-  },
-};
+  }
+}
+
 
 module.exports = pacientesController;

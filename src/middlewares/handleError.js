@@ -10,5 +10,13 @@ module.exports = (error, req, res, next) => {
     return res.status(error.status).json(error);
   }
 
+  if (error.name === "SequelizeForeignKeyConstraintError") {
+    return res
+      .status(400)
+      .json(
+        "Existe relacionamento com esse id, não é possivel deletar"
+      );
+  }
+
   return res.status(500).json(error);
 };
