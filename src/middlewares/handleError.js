@@ -1,5 +1,6 @@
 const { UnauthorizedError } = require("express-jwt");
 const { ValidationError } = require("express-validation");
+const ERRORS = require("../constants/errors");
 
 module.exports = (error, req, res, next) => {
   if (error instanceof ValidationError) {
@@ -13,9 +14,7 @@ module.exports = (error, req, res, next) => {
   if (error.name === "SequelizeForeignKeyConstraintError") {
     return res
       .status(400)
-      .json(
-        "Existe relacionamento com esse id, não é possivel deletar"
-      );
+      .json(ERRORS.DELETE.CONSTRAINT);
   }
 
   return res.status(500).json(error);

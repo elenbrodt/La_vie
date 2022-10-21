@@ -1,4 +1,5 @@
 const { Psicologos, Atendimentos, Pacientes } = require("../models");
+const ERRORS = require("../constants/errors")
 
 const atendimentosController = {
   async listarAtendimentos(req, res, next) {
@@ -27,7 +28,7 @@ const atendimentosController = {
       });
 
       if (atendimentoId === null) {
-        return res.status(404).json("ID não encontrado.");
+        return res.status(404).json(ERRORS.ID_NOT_FOUND);
       }
 
       res.status(200).json(atendimentoId);

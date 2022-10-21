@@ -1,5 +1,6 @@
 const { Psicologos } = require("../models");
 const bcrypt = require("bcryptjs");
+const ERRORS = require('../constants/errors');
 
 const psicologosController = {
   async listarTodosPsicologos(req, res, next) {
@@ -20,7 +21,7 @@ const psicologosController = {
         },
       });
       if (umPsicologo === null) {
-        res.status(404).json("ID Não encontrado");
+        res.status(404).json(ERRORS.ID_NOT_FOUND);
       } else {
         res.status(200).json(umPsicologo);
       }
@@ -69,7 +70,7 @@ const psicologosController = {
         },
       });
       if (umPsicologo === null) {
-        res.status(404).json("ID não encontrado");
+        res.status(404).json(ERRORS.ID_NOT_FOUND);
       } else {
         res.status(200).json(umPsicologo);
       }
@@ -91,7 +92,7 @@ const psicologosController = {
         },
       });
       if (umPsicologo === null) {
-        res.status(404).json("ID não encontrado");
+        res.status(404).json(ERRORS.ID_NOT_FOUND);
       } else {
         res.sendStatus(204);
       }

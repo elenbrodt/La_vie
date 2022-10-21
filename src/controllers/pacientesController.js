@@ -1,4 +1,5 @@
 const { Pacientes } = require("../models");
+const ERRORS = require("../constants/errors");
 
 const pacientesController = {
   async listarTodosPacientes(req, res, next) {
@@ -19,7 +20,7 @@ const pacientesController = {
         },
       });
       if (umPaciente === null) {
-        res.status(404).json("ID não encontrado");
+        res.status(404).json(ERRORS.ID_NOT_FOUND);
       } else {
         res.status(200).json(umPaciente);
       }
@@ -51,7 +52,7 @@ const pacientesController = {
       const valid_paciente = await Pacientes.findByPk(id);
 
       if (!valid_paciente) {
-        return res.status(400).json("ID não encontrado")   
+        return res.status(400).json(ERRORS.ID_NOT_FOUND)   
       }
 
       const pacienteAtualizado = await Pacientes.update(
@@ -83,7 +84,7 @@ const pacientesController = {
         },
       });
       if (deletandoPaciente === 0) {
-        res.status(404).json("ID não encontrado");
+        res.status(404).json(ERRORS.ID_NOT_FOUND);
       } else {
         res.sendStatus(204);
       }
