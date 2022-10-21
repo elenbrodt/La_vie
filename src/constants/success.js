@@ -1,4 +1,4 @@
-const ERRORS = {
+const SUCCESS = {
     ID_NOT_FOUND:"ID não encontrada!",
     DELETE:{
         CONSTRAINT: "Existe relacionamento com esse id, não é possivel deletar"
@@ -7,6 +7,7 @@ const ERRORS = {
         EMAIL:"Email não cadastrado!",
         PASSWORD:"Senha invalida!"
     },
-    DB: "Error ao tentar uma conexão com banco dados"
+    SERVER: "Servidor rodando na porta 3000",
+    DB: "Banco dados conectado!",
 }
-module.exports = ERRORS;
+module.exports = SUCCESS;
