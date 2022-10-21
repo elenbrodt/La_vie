@@ -2,6 +2,7 @@ const { Psicologos } = require("../models");
 const jwt = require("jsonwebtoken");
 const secret = require("../configs/secret");
 const bcrypt = require("bcryptjs");
+const ERRORS = require("../constants/errors")
 
 const AuthController = {
   async login(req, res) {
@@ -15,11 +16,11 @@ const AuthController = {
       });
 
       if (!psicologo) {
-        return res.status(401).json("Email não cadastrado!");
+        return res.status(401).json(ERRORS.AUTH.EMAIL);
       }
 
       if (!bcrypt.compareSync(senha, psicologo.senha)) {
-        return res.status(401).json("Senha invalida!");
+        return res.status(401).json(ERRORS.AUTH.PASSWORD);
       }
 
       const token = jwt.sign(
